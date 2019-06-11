@@ -62,7 +62,7 @@ public class Chunk
     /// <returns>Returns the file name of the to be saved or loaded chunk</returns>
 	string BuildChunkFileName(Vector3 v)
 	{
-		return Application.persistentDataPath + "/leveldata/"+levelName+"/Chunk_" + 
+		return Application.dataPath + "/leveldata/"+levelName+"/Chunk_" + 
 								(int)v.x + "_" +
 									(int)v.y + "_" +
 										(int)v.z + 
@@ -181,7 +181,7 @@ public class Chunk
     /// </summary>
 	public void Redraw()
 	{
-		GameObject.DestroyImmediate(chunk.GetComponent<MeshFilter>());
+        GameObject.DestroyImmediate(chunk.GetComponent<MeshFilter>());
 		GameObject.DestroyImmediate(chunk.GetComponent<MeshRenderer>());
 		GameObject.DestroyImmediate(chunk.GetComponent<Collider>());
 		GameObject.DestroyImmediate(fluid.GetComponent<MeshFilter>());
@@ -345,6 +345,16 @@ public class Chunk
 
     }
 
+    public Block[,,] copyChunkData() {
+        return chunkData;
+    }
+
+    public void pasteChunkData(Block[,,] data) {
+        chunkData = data;
+        bd = new BlockData(chunkData);
+        Redraw();
+        Save();
+    }
 
     public void setChunkType(int type,Block.BlockType block) {
 

@@ -11,6 +11,8 @@ public class EditorBehavior : MonoBehaviour
     [SerializeField] private float fastMoveFactor = 3;
     [SerializeField] private World world;
 
+
+    private Block[,,] clipBoard;
     private float rotationX = 0.0f;
     private float rotationY = 0.0f;
     private float LastKeyPressed;
@@ -49,6 +51,7 @@ public class EditorBehavior : MonoBehaviour
         if (Input.GetKey(KeyCode.Q)) { transform.position += transform.up * climbSpeed * Time.deltaTime; }
         if (Input.GetKey(KeyCode.E)) { transform.position -= transform.up * climbSpeed * Time.deltaTime; }
 
+        
         // Toggle the lock mode of the cursor
         if (Input.GetKeyDown(KeyCode.End)) {
             if (Cursor.lockState == CursorLockMode.Locked) {
@@ -109,8 +112,42 @@ public class EditorBehavior : MonoBehaviour
             World.GetWorldChunk(transform.position).setChunkType(0, activeBlock);
         }
 
+
+        //CopyPaste Chunk
+        if (Input.GetKeyDown(KeyCode.C)) {
+            clipBoard =  World.GetWorldChunk(transform.position).copyChunkData();
+        }
+        if (Input.GetKeyDown(KeyCode.V)) {
+            World.GetWorldChunk(transform.position).pasteChunkData(clipBoard);
+        }
+
+
+        //build single Block
+        if(Input.GetKeyDown(KeyCode.Mouse0)) {
+            RaycastHit hit;
+            if(Physics.Raycast(transform.position, transform.forward, out hit, 10)) {
+                Vector3 block = hit.point + (transform.forward * 0.1f);
+                World.GetWorldBlock(block).SetType(Block.BlockType.AIR);
+                World.GetWorldChunk(block).Redraw();
+                World.GetWorldChunk(block).Save();
+            }
+
+            
+        } else {
+            if (Input.GetKeyDown(KeyCode.Mouse1)) {
+                RaycastHit hit;
+                if (Physics.Raycast(transform.position, transform.forward, out hit, 10)) {
+                    Vector3 block = hit.point - (transform.forward * 0.1f);
+                    World.GetWorldBlock(block).SetType(activeBlock);
+                    World.GetWorldChunk(block).Redraw();
+                    World.GetWorldChunk(block).Save();
+                }
+            }
+        }
+        
+
     }
 
 
-    
+
 }
