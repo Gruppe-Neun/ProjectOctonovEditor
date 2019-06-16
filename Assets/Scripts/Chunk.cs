@@ -93,7 +93,6 @@ public class Chunk
                     for (int x = 0; x < World.chunkSize; x++) {
                         chunkData[x, y, z] = new Block(bd.matrix[x,y,z], new Vector3(x, y, z), this.chunk.gameObject, this);
                     }
-            Debug.Log(chunkFile);
             return true;
 		}
 		return false;

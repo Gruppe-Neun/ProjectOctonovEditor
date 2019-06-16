@@ -427,6 +427,7 @@ MonoBehaviour:
   slowMoveFactor: 0.25
   fastMoveFactor: 3
   world: {fileID: 556296019}
+  ui: {fileID: 1418019977}
 --- !u!1 &1395071238
 GameObject:
   m_ObjectHideFlags: 0
@@ -553,7 +554,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -615,4 +616,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   imagePrefab: {fileID: 1511786754391913486, guid: 3f4e7b3c8b0dc17408ce0d0566ecc263,
     type: 3}
-  active: 0

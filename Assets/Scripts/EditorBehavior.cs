@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class EditorBehavior : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class EditorBehavior : MonoBehaviour
     [SerializeField] private float slowMoveFactor = 0.25f;
     [SerializeField] private float fastMoveFactor = 3;
     [SerializeField] private World world;
-
+    [SerializeField] private editorUI ui;
 
     private Block[,,] clipBoard;
     private float rotationX = 0.0f;
@@ -144,7 +145,50 @@ public class EditorBehavior : MonoBehaviour
                 }
             }
         }
-        
+
+
+        //switch blocks
+
+        if (Input.GetKeyDown(KeyCode.Alpha0)) {
+            ui.setActive(10);
+            this.activeBlock = (Block.BlockType)10;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha1)) {
+            ui.setActive(1);
+            this.activeBlock = (Block.BlockType)1;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2)) {
+            ui.setActive(2);
+            this.activeBlock = (Block.BlockType)2;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3)) {
+            ui.setActive(3);
+            this.activeBlock = (Block.BlockType)3;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4)) {
+            ui.setActive(4);
+            this.activeBlock = (Block.BlockType)4;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha5)) {
+            ui.setActive(5);
+            this.activeBlock = (Block.BlockType)5;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha6)) {
+            ui.setActive(6);
+            this.activeBlock = (Block.BlockType)6;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha7)) {
+            ui.setActive(7);
+            this.activeBlock = (Block.BlockType)7;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha8)) {
+            ui.setActive(8);
+            this.activeBlock = (Block.BlockType)8;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha9)) {
+            ui.setActive(9);
+            this.activeBlock = (Block.BlockType)9;
+        }
 
     }
 

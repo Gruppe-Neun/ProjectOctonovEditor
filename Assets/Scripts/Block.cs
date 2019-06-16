@@ -18,7 +18,7 @@ public class Block
 	public Vector3 position;
 
     // Hard-coded UVs based on blockuvs.txt
-	Vector2[,] blockUVs = { 
+	public static Vector2[,] blockUVs = { 
 		/*AIR*/		        {new Vector2( 0.125f, 0.375f ), new Vector2( 0.1875f, 0.375f),
 								new Vector2( 0.125f, 0.4375f ),new Vector2( 0.1875f, 0.4375f )},
 		/*DIRT*/			{new Vector2( 0.125f, 0.9375f ), new Vector2( 0.1875f, 0.9375f),
