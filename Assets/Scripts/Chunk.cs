@@ -287,6 +287,12 @@ public class Chunk
                     chunkData[x, y, z] = new Block(fillType, new Vector3(x, y, z), this.chunk.gameObject, this);
                 }
 
+        isFilled[0] = false;
+        isFilled[1] = false;
+        isFilled[2] = false;
+        isFilled[3] = false;
+        isFilled[4] = false;
+        isFilled[5] = false;
 
         bd = new BlockData(chunkData);
         Redraw();
@@ -347,12 +353,23 @@ public class Chunk
 
     }
 
-    public Block[,,] copyChunkData() {
-        return chunkData;
+    public Block.BlockType[,,] copyChunkData() {
+        Block.BlockType[,,] ret = new Block.BlockType[World.chunkSize, World.chunkSize, World.chunkSize];
+        for (int z = 0; z < World.chunkSize; z++)
+            for (int y = 0; y < World.chunkSize; y++)
+                for (int x = 0; x < World.chunkSize; x++) {
+                    ret[x, y, z] = chunkData[x, y, z].blockType;
+                }
+        return ret;
     }
 
-    public void pasteChunkData(Block[,,] data) {
-        chunkData = data;
+    public void pasteChunkData(Block.BlockType[,,] data) {
+        chunkData = new Block[World.chunkSize, World.chunkSize, World.chunkSize];
+        for (int z = 0; z < World.chunkSize; z++)
+            for (int y = 0; y < World.chunkSize; y++)
+                for (int x = 0; x < World.chunkSize; x++) {
+                    chunkData[x, y, z] = new Block(data[x, y, z], new Vector3(x, y, z), this.chunk.gameObject,this);
+                }
         bd = new BlockData(chunkData);
         Redraw();
         Save();

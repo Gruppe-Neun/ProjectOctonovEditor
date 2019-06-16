@@ -12,8 +12,9 @@ public class EditorBehavior : MonoBehaviour
     [SerializeField] private float fastMoveFactor = 3;
     [SerializeField] private World world;
     [SerializeField] private editorUI ui;
+    [SerializeField] private GameObject overlay;
 
-    private Block[,,] clipBoard;
+    private Block.BlockType[,,] clipBoard;
     private float rotationX = 0.0f;
     private float rotationY = 0.0f;
     private float LastKeyPressed;
@@ -28,6 +29,8 @@ public class EditorBehavior : MonoBehaviour
     void Update() {
         // Get input from mouse
         rotationX += Input.GetAxis("Mouse X") * cameraSensitivity * Time.deltaTime;
+        if (rotationX > 360) rotationX -= 360;
+        else { if (rotationX < 0) rotationX += 360; }
         rotationY += Input.GetAxis("Mouse Y") * cameraSensitivity * Time.deltaTime;
         // Limit the y rotation to 90°
         rotationY = Mathf.Clamp(rotationY, -90, 90);
@@ -114,6 +117,16 @@ public class EditorBehavior : MonoBehaviour
         }
 
 
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            if (rotationY >= 60) World.GetWorldChunk(transform.position).setOuter(0, activeBlock);
+            else if (rotationY <= -60) World.GetWorldChunk(transform.position).setOuter(5, activeBlock); 
+            else if (rotationX <= 45) World.GetWorldChunk(transform.position).setOuter(3, activeBlock);
+            else if (rotationX <= 135) World.GetWorldChunk(transform.position).setOuter(2, activeBlock);
+            else if (rotationX <= 225) World.GetWorldChunk(transform.position).setOuter(1, activeBlock);
+            else if (rotationX <= 315) World.GetWorldChunk(transform.position).setOuter(4, activeBlock);
+            else if (rotationX <= 360) World.GetWorldChunk(transform.position).setOuter(3, activeBlock);
+        }
+
         //CopyPaste Chunk
         if (Input.GetKeyDown(KeyCode.C)) {
             clipBoard =  World.GetWorldChunk(transform.position).copyChunkData();
@@ -190,6 +203,11 @@ public class EditorBehavior : MonoBehaviour
             this.activeBlock = (Block.BlockType)9;
         }
 
+
+        if (Input.GetKeyDown(KeyCode.H)) {
+            if (overlay.active) overlay.SetActive(false);
+            else overlay.SetActive(true);
+        }
     }
 
 
