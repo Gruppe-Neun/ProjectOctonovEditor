@@ -8,7 +8,7 @@ using UnityEngine;
 public class Block
 {
 	enum Cubeside {BOTTOM, TOP, LEFT, RIGHT, FRONT, BACK};
-	public enum BlockType {GRASS, DIRT, WATER, STONE, LEAVES, WOOD, WOODBASE, SAND, GOLD, BEDROCK, REDSTONE, DIAMOND, AIR };
+	public enum BlockType {AIR, DIRT, WATER, STONE, LEAVES, WOOD, WOODBASE, SAND, GOLD, BEDROCK, REDSTONE, DIAMOND };
 
 
     public BlockType blockType;
@@ -19,10 +19,8 @@ public class Block
 
     // Hard-coded UVs based on blockuvs.txt
 	Vector2[,] blockUVs = { 
-		/*GRASS TOP*/		{new Vector2( 0.125f, 0.375f ), new Vector2( 0.1875f, 0.375f),
+		/*AIR*/		        {new Vector2( 0.125f, 0.375f ), new Vector2( 0.1875f, 0.375f),
 								new Vector2( 0.125f, 0.4375f ),new Vector2( 0.1875f, 0.4375f )},
-		/*GRASS SIDE*/		{new Vector2( 0.1875f, 0.9375f ), new Vector2( 0.25f, 0.9375f),
-								new Vector2( 0.1875f, 1.0f ),new Vector2( 0.25f, 1.0f )},
 		/*DIRT*/			{new Vector2( 0.125f, 0.9375f ), new Vector2( 0.1875f, 0.9375f),
 								new Vector2( 0.125f, 1.0f ),new Vector2( 0.1875f, 1.0f )},
 		/*WATER*/			{ new Vector2(0.875f,0.125f),  new Vector2(0.9375f,0.125f),
@@ -133,26 +131,11 @@ public class Block
 		Vector2 uv01;
 		Vector2 uv11;
 
-		if(blockType == BlockType.GRASS && side == Cubeside.TOP)
 		{
-			uv00 = blockUVs[0,0];
-			uv10 = blockUVs[0,1];
-			uv01 = blockUVs[0,2];
-			uv11 = blockUVs[0,3];
-		}
-		else if(blockType == BlockType.GRASS && side == Cubeside.BOTTOM)
-		{
-			uv00 = blockUVs[(int)(BlockType.DIRT+1),0];
-			uv10 = blockUVs[(int)(BlockType.DIRT+1),1];
-			uv01 = blockUVs[(int)(BlockType.DIRT+1),2];
-			uv11 = blockUVs[(int)(BlockType.DIRT+1),3];
-		}
-		else
-		{
-			uv00 = blockUVs[(int)(blockType+1),0];
-			uv10 = blockUVs[(int)(blockType+1),1];
-			uv01 = blockUVs[(int)(blockType+1),2];
-			uv11 = blockUVs[(int)(blockType+1),3];
+			uv00 = blockUVs[(int)(blockType),0];
+			uv10 = blockUVs[(int)(blockType),1];
+			uv01 = blockUVs[(int)(blockType),2];
+			uv11 = blockUVs[(int)(blockType),3];
 		}
 
 

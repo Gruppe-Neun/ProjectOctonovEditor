@@ -121,6 +121,9 @@ public class Chunk
             if (File.Exists(chunkFile)) {
                 File.Delete(chunkFile); 
             }
+            if (File.Exists(chunkFile + ".meta")) {
+                File.Delete(chunkFile + ".meta");
+            }
 
         } else { //if chunk is not empty save data
             string chunkFile = BuildChunkFileName(chunk.transform.position);
