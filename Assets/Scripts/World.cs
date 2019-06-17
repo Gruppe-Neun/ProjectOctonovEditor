@@ -12,10 +12,10 @@ public class World : MonoBehaviour
 	public GameObject player;
 	public Material textureAtlas;
 	public Material fluidTexture;
-	public static int columnHeight = 16;
+	public static int columnHeight = 32;
 	public static int chunkSize = 8;
 	public static int radius = 4;
-	public static uint maxCoroutines = 1000;
+	public static uint maxCoroutines = 2000;
 	public static ConcurrentDictionary<string, Chunk> chunks;
 	public static List<string> toRemove = new List<string>();
     public string LevelName = "default";

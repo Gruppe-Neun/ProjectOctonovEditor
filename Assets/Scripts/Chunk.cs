@@ -108,7 +108,7 @@ public class Chunk
         for (int z = 0; z < World.chunkSize; z++)
             for (int y = 0; y < World.chunkSize; y++)
                 for (int x = 0; x < World.chunkSize; x++) {
-                    if (bd.matrix[x, y, z] != Block.BlockType.AIR) {
+                    if (chunkData[x, y, z].blockType != Block.BlockType.AIR) {
                         empty = false;
                         z = World.chunkSize;
                         y = World.chunkSize;

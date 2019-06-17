@@ -629,12 +629,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1671833873870661937}
   - component: {fileID: 1671833873862903493}
-  - component: {fileID: 5685618035386063659}
   - component: {fileID: 8718805401145017486}
   - component: {fileID: 7781743831631531624}
   m_Layer: 0
   m_Name: OlliOrdner
-  m_TagString: Untagged
+  m_TagString: object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -648,7 +647,7 @@ Transform:
   m_GameObject: {fileID: 1671833873870304529}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 404.66272, y: 378.54117, z: -522.0927}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 1671833873870661925}
   - {fileID: 1671833873870661927}
@@ -677,26 +676,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &5685618035386063659
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1671833873870304529}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f258f3d72cd8afa4c90664cdf66e6430, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 0
-  name: Container
-  content: []
-  arm_left: {fileID: 1671833873870304517}
-  arm_right: {fileID: 1671833873870304519}
-  leg_left: {fileID: 1671833873870304533}
-  leg_right: {fileID: 1671833873870304535}
-  body: {fileID: 1671833873870304513}
 --- !u!65 &8718805401145017486
 BoxCollider:
   m_ObjectHideFlags: 0
