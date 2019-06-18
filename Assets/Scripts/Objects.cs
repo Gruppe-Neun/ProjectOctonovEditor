@@ -27,6 +27,28 @@ public class Objects : MonoBehaviour
         public int type;
     }
 
+    [Serializable()]
+    public struct LightSource {
+        public LightSource(Vector3 position, float range, float intensity) {
+            pos = new float[] { position.x, position.y, position.z };
+            this.range = range;
+            this.intensity = intensity;
+        }
+        public float[] pos;
+        public float range;
+        public float intensity;
+    }
+
+    [Serializable()]
+    public struct SpawnPoint {
+        public SpawnPoint(Vector3 position, int spawnType) {
+            pos = new float[] { position.x, position.y, position.z };
+            type = spawnType;
+        }
+        public float[] pos;
+        public int type;
+    }
+
     /*
     public struct SpawnPoint {
         public Vector3 pos;
@@ -42,11 +64,18 @@ public class Objects : MonoBehaviour
     [SerializeField] private GameObject containerLarge;
     [SerializeField] private GameObject containerOlli;
 
+    [SerializeField] private GameObject lightSource;
+    [SerializeField] private GameObject spawnPoint;
+
     private ConstructPlace[] constructPlaces = new ConstructPlace[0];
     private Container[] container = new Container[0];
+    private LightSource[] light = new LightSource[0];
+    private SpawnPoint[] spawn = new SpawnPoint[0];
 
     private GameObject[] constructPlacesGO = new GameObject[0];
     private GameObject[] containerGO = new GameObject[0];
+    private GameObject[] lightGO = new GameObject[0];
+    private GameObject[] spawnGO = new GameObject[0];
 
     void Start() {
         load(GetComponent<World>().LevelName);
@@ -57,6 +86,8 @@ public class Objects : MonoBehaviour
         string path = Application.dataPath + "/leveldata/" + levelName + "/";
         string constructPlacesFile = path + "objects_constructPlaces.obj";
         string containerFile = path + "objects_container.obj";
+        string lightFile = path + "objects_light.obj";
+        string spawnFile = path + "objects_spawn.obj";
 
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file;
@@ -71,6 +102,16 @@ public class Objects : MonoBehaviour
             container = (Container[]) bf.Deserialize(file);
             file.Close();
         }
+        if (File.Exists(lightFile)) {
+            file = File.Open(lightFile, FileMode.Open);
+            light = (LightSource[])bf.Deserialize(file);
+            file.Close();
+        }
+        if (File.Exists(spawnFile)) {
+            file = File.Open(spawnFile, FileMode.Open);
+            spawn = (SpawnPoint[])bf.Deserialize(file);
+            file.Close();
+        }
 
     }
 
@@ -78,13 +119,21 @@ public class Objects : MonoBehaviour
         string path = Application.dataPath + "/leveldata/" + levelName + "/";
         string constructPlacesFile = path + "objects_constructPlaces.obj";
         string containerFile = path + "objects_container.obj";
+        string lightFile = path + "objects_light.obj";
+        string spawnFile = path + "objects_spawn.obj";
+
         if (!File.Exists(constructPlacesFile)) {
             Directory.CreateDirectory(Path.GetDirectoryName(constructPlacesFile));
         }
         if (!File.Exists(containerFile)) {
             Directory.CreateDirectory(Path.GetDirectoryName(containerFile));
         }
-
+        if (!File.Exists(lightFile)) {
+            Directory.CreateDirectory(Path.GetDirectoryName(lightFile));
+        }
+        if (!File.Exists(spawnFile)) {
+            Directory.CreateDirectory(Path.GetDirectoryName(spawnFile));
+        }
 
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file;
@@ -95,6 +144,14 @@ public class Objects : MonoBehaviour
 
         file = File.Open(containerFile, FileMode.OpenOrCreate);
         bf.Serialize(file, container);
+        file.Close();
+
+        file = File.Open(lightFile, FileMode.OpenOrCreate);
+        bf.Serialize(file, light);
+        file.Close();
+
+        file = File.Open(spawnFile, FileMode.OpenOrCreate);
+        bf.Serialize(file, spawn);
         file.Close();
     }
 
@@ -136,6 +193,22 @@ public class Objects : MonoBehaviour
                 }
             }
         }
+
+        if (light != null) {
+            lightGO = new GameObject[light.Length];
+            for(int i = 0; i < light.Length; i++) {
+                lightGO[i] = Instantiate(lightSource, new Vector3(light[i].pos[0], light[i].pos[1], light[i].pos[2]), new Quaternion());
+                lightGO[i].GetComponent<Light>().intensity = light[i].intensity;
+                lightGO[i].GetComponent<Light>().range = light[i].range;
+            }
+        }
+
+        if (spawn != null) {
+            spawnGO = new GameObject[spawn.Length];
+            for(int i = 0;i < spawn.Length; i++) {
+                spawnGO[i] = Instantiate(spawnPoint, new Vector3(spawn[i].pos[0], spawn[i].pos[1], spawn[i].pos[2]), new Quaternion());
+            }
+        }
     }
 
     public void addConstructPlace(Vector3 pos, int type) {
@@ -147,13 +220,13 @@ public class Objects : MonoBehaviour
         }
         switch (type) {
             case 0:
-                pos = new Vector3(pos.x, pos.y+1f, pos.z);
+                pos = new Vector3(pos.x, pos.y, pos.z);
                 neuGO[constructPlacesGO.Length] = Instantiate(constructSmall, pos, new Quaternion());
                 neu[constructPlaces.Length] = new ConstructPlace(pos,type);
                 break;
 
             case 1:
-                pos = new Vector3(pos.x, pos.y + 1.5f, pos.z);
+                pos = new Vector3(pos.x, pos.y + 0.5f, pos.z);
                 neuGO[constructPlacesGO.Length] = Instantiate(constructLarge, pos, new Quaternion());
                 neu[constructPlaces.Length] = new ConstructPlace(pos, type);
                 break;
@@ -197,6 +270,36 @@ public class Objects : MonoBehaviour
         save(GetComponent<World>().LevelName);
     }
 
+    public void addLight(Vector3 pos, float range, float intensity) {
+        GameObject[] neuGO = new GameObject[lightGO.Length + 1];
+        LightSource[] neu = new LightSource[light.Length + 1];
+        for (int i = 0; i < light.Length; i++) {
+            neuGO[i] = lightGO[i];
+            neu[i] = light[i];
+        }
+        neu[light.Length] = new LightSource(pos, range, intensity);
+        neuGO[lightGO.Length] = Instantiate(lightSource, pos, new Quaternion());
+        neuGO[lightGO.Length].GetComponent<Light>().intensity = intensity;
+        neuGO[lightGO.Length].GetComponent<Light>().range = range;
+        lightGO = neuGO;
+        light = neu;
+        save(GetComponent<World>().LevelName);
+    }
+
+    public void addSpawn(Vector3 pos, int type) {
+        GameObject[] neuGO = new GameObject[spawnGO.Length + 1];
+        SpawnPoint[] neu = new SpawnPoint[spawn.Length + 1];
+        for (int i = 0; i < spawn.Length; i++) {
+            neuGO[i] = spawnGO[i];
+            neu[i] = spawn[i];
+        }
+        neu[spawn.Length] = new SpawnPoint(pos, type);
+        neuGO[spawnGO.Length] = Instantiate(spawnPoint, pos, new Quaternion());
+        spawnGO = neuGO;
+        spawn = neu;
+        save(GetComponent<World>().LevelName);
+    }
+
     public void deleteObject(GameObject obj) {
         for (int i = 0; i < constructPlacesGO.Length; i++) {
             if (obj.Equals(constructPlacesGO[i])){
@@ -233,6 +336,46 @@ public class Objects : MonoBehaviour
                 }
                 containerGO = neuGO;
                 container = neu;
+                Destroy(obj);
+                save(GetComponent<World>().LevelName);
+                return;
+            }
+        }
+        for (int i = 0; i < lightGO.Length; i++) {
+            if (obj.Equals(lightGO[i])) {
+                GameObject[] neuGO = new GameObject[lightGO.Length - 1];
+                LightSource[] neu = new LightSource[light.Length - 1];
+
+                for (int a = 0; a < i; a++) {
+                    neuGO[a] = lightGO[a];
+                    neu[a] = light[a];
+                }
+                for (int b = i; b < neuGO.Length; b++) {
+                    neuGO[b] = lightGO[b + 1];
+                    neu[b] = light[b + 1];
+                }
+                lightGO = neuGO;
+                light = neu;
+                Destroy(obj);
+                save(GetComponent<World>().LevelName);
+                return;
+            }
+        }
+        for (int i = 0; i < spawnGO.Length; i++) {
+            if (obj.Equals(spawnGO[i])) {
+                GameObject[] neuGO = new GameObject[spawnGO.Length - 1];
+                SpawnPoint[] neu = new SpawnPoint[spawn.Length - 1];
+
+                for (int a = 0; a < i; a++) {
+                    neuGO[a] = spawnGO[a];
+                    neu[a] = spawn[a];
+                }
+                for (int b = i; b < neuGO.Length; b++) {
+                    neuGO[b] = spawnGO[b + 1];
+                    neu[b] = spawn[b + 1];
+                }
+                spawnGO = neuGO;
+                spawn = neu;
                 Destroy(obj);
                 save(GetComponent<World>().LevelName);
                 return;

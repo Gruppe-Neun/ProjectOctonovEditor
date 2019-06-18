@@ -317,6 +317,10 @@ MonoBehaviour:
   containerLarge: {fileID: 0}
   containerOlli: {fileID: 1671833873870304529, guid: 60c9007dff591a0478377a99a8c1c3e7,
     type: 3}
+  lightSource: {fileID: 6095494471061101522, guid: ea0cfc2af87359f4095afd1da92d02d3,
+    type: 3}
+  spawnPoint: {fileID: 1507936810122501082, guid: 90551eb00053b764cae93cb8950b1ea3,
+    type: 3}
 --- !u!1 &725148336
 GameObject:
   m_ObjectHideFlags: 0
@@ -352,8 +356,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -604, y: 335}
-  m_SizeDelta: {x: 750, y: 500}
+  m_AnchoredPosition: {x: -717, y: 403}
+  m_SizeDelta: {x: 500, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &725148338
 MonoBehaviour:
@@ -426,8 +430,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 153.99994, y: -54}
-  m_SizeDelta: {x: 1000, y: 500}
+  m_AnchoredPosition: {x: 10, y: -369.1}
+  m_SizeDelta: {x: 490, y: 1000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &812009036
 MonoBehaviour:
@@ -451,7 +455,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 30
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -465,9 +469,10 @@ MonoBehaviour:
   m_Text: "1-0 \t\t\t\t\tselect BlockType\nMouse left \t\tdestroy block\nMouse right
     \t\tplace block\nC/V \t\t\t\t\tCopy/Paste\nSpace \t\t\t\tSet ChunkWall (in view
     Direction)\nNUM1 \t\t\t\tDelete chunk\nNUM0 \t\t\t\tChange Chunk to Stairs\nX/Y/Z
-    \t\t\t\trotate around axis\nH \t\t\t\t\t\tHide UI\n________NOT FULLY IMPLEMENTED___________\nN/M\t\t\t\t\tPlace
-    Construct (Small/Large)\nJ/K/L\t\t\t\t\tPlace Container (Small/Medium/Large)\nO\t\t\t\t\t\tPlace
-    Olli Ordner\n"
+    \t\t\t\trotate around axis\nH \t\t\t\t\t\tHide UI\nN/M\t\t\t\t\tPlace Construct
+    (Small/Large)\nO\t\t\t\t\t\tPlace Olli Ordner\nI\t\t\t\t\t\tPlace Lightsource\nU\t\t\t\t\t\tPlace
+    Spawn Point\n________NOT FULLY IMPLEMENTED___________\nJ/K/L\t\t\t\t\tPlace Container
+    (Small/Medium/Large)\n\n"
 --- !u!222 &812009037
 CanvasRenderer:
   m_ObjectHideFlags: 0

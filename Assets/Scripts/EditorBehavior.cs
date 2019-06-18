@@ -168,14 +168,14 @@ public class EditorBehavior : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.N)) {
             RaycastHit hit;
             if (Physics.Raycast(transform.position, transform.forward, out hit, 10)) {
-                Vector3 block = hit.point + (transform.forward * 0.1f);
+                Vector3 block = hit.point - (transform.forward * 0.1f);
                 objects.addConstructPlace(new Vector3((int)(Mathf.Round(block.x)), (int)(Mathf.Round(block.y)), (int)(Mathf.Round(block.z))), 0);
             }
         }
         if (Input.GetKeyDown(KeyCode.M)) {
             RaycastHit hit;
             if (Physics.Raycast(transform.position, transform.forward, out hit, 10)) {
-                Vector3 block = hit.point + (transform.forward * 0.1f);
+                Vector3 block = hit.point - (transform.forward * 0.1f);
                 objects.addConstructPlace(new Vector3((int)(Mathf.Round(block.x)), (int)(Mathf.Round(block.y)), (int)(Mathf.Round(block.z))), 1);
             }
         }
@@ -184,34 +184,50 @@ public class EditorBehavior : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.J)) {
             RaycastHit hit;
             if (Physics.Raycast(transform.position, transform.forward, out hit, 10)) {
-                Vector3 block = hit.point + (transform.forward * 0.1f);
+                Vector3 block = hit.point - (transform.forward * 0.1f);
                 objects.addContainer(new Vector3((int)(Mathf.Round(block.x)), (int)(Mathf.Round(block.y)), (int)(Mathf.Round(block.z))), 0);
             }
         }
         if (Input.GetKeyDown(KeyCode.K)) {
             RaycastHit hit;
             if (Physics.Raycast(transform.position, transform.forward, out hit, 10)) {
-                Vector3 block = hit.point + (transform.forward * 0.1f);
+                Vector3 block = hit.point - (transform.forward * 0.1f);
                 objects.addContainer(new Vector3((int)(Mathf.Round(block.x)), (int)(Mathf.Round(block.y)), (int)(Mathf.Round(block.z))), 1);
             }
         }
         if (Input.GetKeyDown(KeyCode.L)) {
             RaycastHit hit;
             if (Physics.Raycast(transform.position, transform.forward, out hit, 10)) {
-                Vector3 block = hit.point + (transform.forward * 0.1f);
+                Vector3 block = hit.point - (transform.forward * 0.1f);
                 objects.addContainer(new Vector3((int)(Mathf.Round(block.x)), (int)(Mathf.Round(block.y)), (int)(Mathf.Round(block.z))), 2);
             }
         }
         if (Input.GetKeyDown(KeyCode.O)) {
             RaycastHit hit;
             if (Physics.Raycast(transform.position, transform.forward, out hit, 10)) {
-                Vector3 block = hit.point + (transform.forward * 0.1f);
+                Vector3 block = hit.point - (transform.forward * 0.1f);
                 objects.addContainer(new Vector3((int)(Mathf.Round(block.x)), (int)(Mathf.Round(block.y)), (int)(Mathf.Round(block.z))), 3);
             }
         }
 
-        //switch blocks
+        //Place LightSource
+        if (Input.GetKeyDown(KeyCode.I)) {
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, transform.forward, out hit, 10)) {
+                Vector3 block = hit.point - (transform.forward * 0.1f);
+                objects.addLight(new Vector3((int)(Mathf.Round(block.x)), (int)(Mathf.Round(block.y)), (int)(Mathf.Round(block.z))), 10f,1f);
+            }
+        }
+        //Place SpawnPoint
+        if (Input.GetKeyDown(KeyCode.U)) {
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, transform.forward, out hit, 10)) {
+                Vector3 block = hit.point - (transform.forward * 0.1f);
+                objects.addSpawn(new Vector3((int)(Mathf.Round(block.x)), (int)(Mathf.Round(block.y)), (int)(Mathf.Round(block.z))), 0);
+            }
+        }
 
+        //switch blocks
         if (Input.GetKeyDown(KeyCode.Alpha0)) {
             ui.setActive(10);
             this.activeBlock = (Block.BlockType)10;
